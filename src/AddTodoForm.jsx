@@ -6,10 +6,9 @@ function AddTodoForm(props) {
     function handleAddTodo(event) {
         event.preventDefault();
         console.log(todoTitle);
-        if (props.onAddTodo) {
-            props.onAddTodo(todoTitle);
-        }
-        setTodoTitle("");
+        props.onAddTodo(todoTitle);
+        setTodoTitle('')
+        event.target.reset();
     }
 
     return (
