@@ -5,9 +5,10 @@ function AddTodoForm(props) {
 
     function handleAddTodo(event) {
         event.preventDefault();
+        const todoTitle = event.target.elements.title.value;
         console.log(todoTitle);
         props.onAddTodo(todoTitle);
-        setTodoTitle('')
+        setTodoTitle('');
         event.target.reset();
     }
 
@@ -16,8 +17,9 @@ function AddTodoForm(props) {
             <label htmlFor="todoTitle">Title</label>
             <input
                 id="todoTitle"
+                name="title"
                 value={todoTitle}
-                onChange={(el) => setTodoTitle(el.target.value)}
+                onChange={(element) => setTodoTitle(element.target.value)}
             />
             <button type="submit">Add</button>
         </form>
