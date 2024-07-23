@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import "./App.css";
 import AddTodoForm from "./AddTodoForm";
 import TodoList from "./TodoList";
@@ -23,11 +23,13 @@ function App() {
     }
 
     return (
-        <div className="App">
-            <h1>My Todo List</h1>
-            <AddTodoForm onAddTodo={addTodo} />
-            <TodoList todoList={todoList} />
-        </div>
+        <Fragment>
+            <div className="App">
+                <h1>My Todo List</h1>
+                <AddTodoForm onAddTodo={addTodo} />
+                <TodoList todoList={todoList} />
+            </div>
+        </Fragment>
     );
 }
 
