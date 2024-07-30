@@ -21,15 +21,20 @@ function App() {
     function addTodo(newTodo) {
         setTodoList((prevTodos) => [...prevTodos, newTodo]);
     }
+    function removeTodo(id) {
+        todoList.splice(id)
+        setTodoList
+        removeTodo={onRemoveTodo}
+    }
 
     return (
-        <Fragment>
+        <>
             <div className="App">
                 <h1>My Todo List</h1>
                 <AddTodoForm onAddTodo={addTodo} />
                 <TodoList todoList={todoList} />
             </div>
-        </Fragment>
+        </>
     );
 }
 

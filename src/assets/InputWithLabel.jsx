@@ -1,11 +1,17 @@
-import { Fragment } from "react";
+import { useEffect, useRef } from "react";
 
-export default function InputWithLabel({todoTitle,handleTitleChange})  {
+export default function InputWithLabel({ id, value, isFocused, onChange }) {
+    const inputRef = useRef();
+    useEffect(() => {
+        if (inputRef.current) {
+            inputRef.current.focus();
+        }
+    }, [isFocused]);
+
     return (
-    <Fragment>
-        <label htmlFor="todoTitle">Title</label>
-            <input id="todoTitle" name="todoTitle" value={todoTitle} onChange={handleTitleChange} />
-            <button type="submit">Add</button>
-    </Fragment>
-);
+        <>
+            <label htmlFor="todoTitle">Title</label>
+            <input ref={inputRef} id={id} value={value} onChange={onChange} />
+        </>
+    );
 }

@@ -14,10 +14,11 @@ export default function AddTodoForm({ onAddTodo }) {
         const newTodo = {
             title: todoTitle,
             id: Date.now(),
+           
         };
         
         onAddTodo(newTodo);
-        setTodoTitle("");
+        
     }
 
     return (
