@@ -14,17 +14,22 @@ export default function AddTodoForm({ onAddTodo }) {
         const newTodo = {
             title: todoTitle,
             id: Date.now(),
-           
         };
-        
         onAddTodo(newTodo);
-        
+        setTodoTitle("");
     }
 
     return (
-        <form onSubmit={handleAddTodo}>
-            <InputWithLabel todoTitle={todoTitle}
-                handleTitleChange={handleTitleChange} />
-        </form>
+        <>
+            <form onSubmit={handleAddTodo}>
+                <InputWithLabel
+                    id="todoTitle"
+                    label="Title"
+                    value={todoTitle}
+                    onChange={handleTitleChange}
+                />
+                <button type="submit">Add</button>
+            </form>
+        </>
     );
 }
