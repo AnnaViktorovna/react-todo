@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "./App.css";
 import AddTodoForm from "./AddTodoForm";
 import TodoList from "./TodoList";
@@ -16,13 +16,16 @@ const useSemiPersistentState = () => {
 
 function App() {
     const [todoList, setTodoList] = useSemiPersistentState();
+    const inputRef = useRef();
 
     function addTodo(newTodo) {
         setTodoList((prevTodos) => [...prevTodos, newTodo]);
+        inputRef.current.focus();
     }
     function removeTodo(id) {
         const filterTodo = todoList.filter((todo) => todo.id !== id);
         setTodoList(filterTodo);
+        inputRef.current.focus();
     }
 
     return (
