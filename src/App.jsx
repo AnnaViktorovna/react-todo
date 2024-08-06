@@ -3,33 +3,33 @@ import "./App.css";
 import AddTodoForm from "./AddTodoForm";
 import TodoList from "./TodoList";
 
-
 function App() {
     const [todoList, setTodoList] = useState(
         JSON.parse(localStorage.getItem("savedTodoList")) || []
     );
+    const [isLoading, setIsLoading] = useState(true);
+
     useEffect(() => {
         new Promise((resolve, reject) => {
-            
             setTimeout(() => {
-                
                 resolve({
                     data: {
-                        todoList: [] 
-                    }
+                        todoList: [],
+                    },
                 });
             }, 2000);
-        })
-        .then((result) => {
+        }).then((result) => {
             setTodoList(result.data.todoList);
-        })
+            setIsLoading(false);
+        });
     }, []);
 
-
     useEffect(() => {
-        localStorage.setItem("savedTodoList", JSON.stringify(todoList));
-    }, [todoList]);
-    
+        if (!isLoading) {
+            localStorage.setItem("savedTodoList", JSON.stringify(todoList));
+        }
+    }, [todoList, isLoading]);
+
     const inputRef = useRef();
 
     function addTodo(newTodo) {
