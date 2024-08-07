@@ -1,12 +1,10 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import AddTodoForm from "./AddTodoForm";
 import TodoList from "./TodoList";
 
 function App() {
-    const [todoList, setTodoList] = useState(
-        JSON.parse(localStorage.getItem("savedTodoList")) || []
-    );
+    const [todoList, setTodoList] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
@@ -30,16 +28,15 @@ function App() {
         }
     }, [todoList, isLoading]);
 
-    const inputRef = useRef();
+  
 
     function addTodo(newTodo) {
         setTodoList((prevTodos) => [...prevTodos, newTodo]);
-        inputRef.current.focus();
     }
+
     function removeTodo(id) {
         const filterTodo = todoList.filter((todo) => todo.id !== id);
         setTodoList(filterTodo);
-        inputRef.current.focus();
     }
 
     return (
@@ -47,7 +44,8 @@ function App() {
             <div className="App">
                 <h1>My Todo List</h1>
                 <AddTodoForm onAddTodo={addTodo} />
-                <TodoList todoList={todoList} onRemoveTodo={removeTodo} />
+                
+                {isLoading ? <p>Loading...</p> :<TodoList todoList={todoList} onRemoveTodo={removeTodo} /> }
             </div>
         </>
     );

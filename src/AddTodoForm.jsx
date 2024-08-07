@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import InputWithLabel from "./assets/InputWithLabel";
 
 export default function AddTodoForm({ onAddTodo }) {
     const [todoTitle, setTodoTitle] = useState("");
+    const inputRef = useRef();
 
     function handleTitleChange(event) {
         const newTodoTitle = event.target.value;
@@ -17,6 +18,7 @@ export default function AddTodoForm({ onAddTodo }) {
         };
         onAddTodo(newTodo);
         setTodoTitle("");
+        inputRef.current.focus();
     }
 
     return (
