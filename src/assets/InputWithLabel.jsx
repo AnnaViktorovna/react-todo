@@ -6,7 +6,7 @@ export default function InputWithLabel({id, value, onChange, children}) {
 
     useEffect(() => {
         inputRef.current.focus()
-});
+}, );
 
     return (
         <>

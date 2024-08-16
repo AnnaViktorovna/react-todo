@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "./App.css";
 import AddTodoForm from "./AddTodoForm";
 import TodoList from "./TodoList";
@@ -6,6 +6,8 @@ import TodoList from "./TodoList";
 function App() {
     const [todoList, setTodoList] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+
+    const inputRef = useRef() ;
 
     useEffect(() => {
         new Promise((resolve, reject) => {
