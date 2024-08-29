@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import AddTodoForm from "./AddTodoForm";
 import TodoList from "./TodoList";
@@ -34,20 +34,26 @@ function App() {
 
     function addTodo(newTodo) {
         setTodoList((prevTodos) => [...prevTodos, newTodo]);
+<<<<<<< HEAD
         inputRef.current.focus()
+=======
+>>>>>>> 2be90a5 ( Conditional Loading Indicator)
     }
 
     function removeTodo(id) {
         const filterTodo = todoList.filter((todo) => todo.id !== id);
         setTodoList(filterTodo);
-        inputRef.current.focus();
     }
 
     return (
         <>
             <div className="App">
                 <h1>My Todo List</h1>
+<<<<<<< HEAD
                 <AddTodoForm onAddTodo={addTodo} inputRef={inputRef}/>
+=======
+                <AddTodoForm onAddTodo={addTodo} />
+>>>>>>> 2be90a5 ( Conditional Loading Indicator)
                 
                 {isLoading ? <p>Loading...</p> :<TodoList todoList={todoList} onRemoveTodo={removeTodo} /> }
             </div>
