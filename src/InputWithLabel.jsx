@@ -1,12 +1,9 @@
 import { useEffect, useRef } from "react";
 
-export default function InputWithLabel({id, value, onChange, children}) {
-    const inputRef = useRef();
-   
-
+export default function InputWithLabel({id, value, onChange, children, inputRef}) {
     useEffect(() => {
         inputRef.current.focus()
-}, );
+}, []);
 
     return (
         <>

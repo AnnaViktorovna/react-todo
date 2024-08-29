@@ -1,7 +1,7 @@
 import { useState} from "react";
-import InputWithLabel from "./assets/InputWithLabel";
+import InputWithLabel from "./InputWithLabel";
 
-export default function AddTodoForm({ onAddTodo }) {
+export default function AddTodoForm({ onAddTodo, inputRef }) {
     const [todoTitle, setTodoTitle] = useState("");
 
     function handleTitleChange(event) {
@@ -27,6 +27,7 @@ export default function AddTodoForm({ onAddTodo }) {
                     label="Title"
                     value={todoTitle}
                     onChange={handleTitleChange}
+                    inputRef={inputRef}
                 />
                 <button type="submit">Add</button>
             </form>

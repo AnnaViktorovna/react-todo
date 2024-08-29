@@ -14,7 +14,7 @@ function App() {
             setTimeout(() => {
                 resolve({
                     data: {
-                        todoList: [],
+                        todoList: JSON.parse(localStorage.getItem("savedTodoList")) || [],
                     },
                 });
             }, 2000);
@@ -34,18 +34,20 @@ function App() {
 
     function addTodo(newTodo) {
         setTodoList((prevTodos) => [...prevTodos, newTodo]);
+        inputRef.current.focus()
     }
 
     function removeTodo(id) {
         const filterTodo = todoList.filter((todo) => todo.id !== id);
         setTodoList(filterTodo);
+        inputRef.current.focus();
     }
 
     return (
         <>
             <div className="App">
                 <h1>My Todo List</h1>
-                <AddTodoForm onAddTodo={addTodo} />
+                <AddTodoForm onAddTodo={addTodo} inputRef={inputRef}/>
                 
                 {isLoading ? <p>Loading...</p> :<TodoList todoList={todoList} onRemoveTodo={removeTodo} /> }
             </div>
