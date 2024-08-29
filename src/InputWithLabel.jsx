@@ -16,4 +16,3 @@ export default function InputWithLabel({id, value, onChange, children, inputRef}
             autoFocus  />
         </>
     );
-}
