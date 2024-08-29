@@ -40,6 +40,7 @@ function App() {
     function removeTodo(id) {
         const filterTodo = todoList.filter((todo) => todo.id !== id);
         setTodoList(filterTodo);
+        inputRef.current.focus();
     }
 
     return (
