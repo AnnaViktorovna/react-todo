@@ -2,26 +2,52 @@ import { useState, useEffect, useRef } from "react";
 import "./App.css";
 import AddTodoForm from "./AddTodoForm";
 import TodoList from "./TodoList";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
     const [todoList, setTodoList] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
-    const inputRef = useRef() ;
+    const inputRef = useRef();
+
+    async function fetchData() {
+        const apiKey = import.meta.env.VITE_AIRTABLE_API_TOKEN;
+        console.log(apiKey);
+
+        const url = `https://api.airtable.com/v0/${
+            import.meta.env.VITE_AIRTABLE_BASE_ID
+        }/${import.meta.env.VITE_TABLE_NAME}`;
+
+        const options = {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${
+                    import.meta.env.VITE_AIRTABLE_API_TOKEN
+                }`,
+            },
+        };
+
+        try {
+            const response = await fetch(url, options);
+            if (!response.ok) {
+                throw new Error(`${response.status}`);
+            }
+            const data = await response.json();
+            const todos = data.records.map((todo) => {
+                return {id: todo.id, title: todo.fields.title}
+            })
+
+            setTodoList(todos);
+            setIsLoading(false);
+
+          } catch (error) {
+            console.error(error.message);
+            return null;
+        }
+    }
 
     useEffect(() => {
-        new Promise((resolve, reject) => {
-            setTimeout(() => {
-                resolve({
-                    data: {
-                        todoList: JSON.parse(localStorage.getItem("savedTodoList")) || [],
-                    },
-                });
-            }, 2000);
-        }).then((result) => {
-            setTodoList(result.data.todoList);
-            setIsLoading(false);
-        });
+        fetchData();
     }, []);
 
     useEffect(() => {
@@ -30,11 +56,9 @@ function App() {
         }
     }, [todoList, isLoading]);
 
-  
-
     function addTodo(newTodo) {
         setTodoList((prevTodos) => [...prevTodos, newTodo]);
-        inputRef.current.focus()
+        inputRef.current.focus();
     }
 
     function removeTodo(id) {
@@ -44,14 +68,27 @@ function App() {
     }
 
     return (
-        <>
+       <BrowserRouter>
+
+       <Routes>
+       <Route path="/" element={
+        
             <div className="App">
                 <h1>My Todo List</h1>
-                <AddTodoForm onAddTodo={addTodo} inputRef={inputRef}/>
-                
-                {isLoading ? <p>Loading...</p> :<TodoList todoList={todoList} onRemoveTodo={removeTodo} /> }
+                <AddTodoForm onAddTodo={addTodo} inputRef={inputRef} />
+
+                {isLoading ? (
+                    <p>Loading...</p>
+                ) : (
+                    <TodoList todoList={todoList} onRemoveTodo={removeTodo} />
+                )}
             </div>
-        </>
+       }
+       />
+       <Route path="/new" element={<h1>New ToDo List</h1>}/>
+       
+        </Routes>
+        </BrowserRouter>
     );
 }
 
