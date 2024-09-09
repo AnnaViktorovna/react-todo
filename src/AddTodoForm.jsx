@@ -30,7 +30,7 @@ export default function AddTodoForm({ onAddTodo, inputRef }) {
                     onChange={handleTitleChange}
                     inputRef={inputRef}
                 />
-                <button type="submit">Add</button>
+                <button className="button" type="submit">Add</button>
             </form>
         </>
     );
