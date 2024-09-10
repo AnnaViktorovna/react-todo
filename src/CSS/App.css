@@ -6,12 +6,8 @@ body {
 }
 
 
-.App ul {
-  list-style: none;
-  font-weight: normal;
-  text-align: center;
-  text-transform: capitalize;
-}
+
+
 
 label {
   font-size: 36px;
