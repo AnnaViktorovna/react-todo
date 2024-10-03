@@ -1,5 +1,11 @@
 .ListItem {
-    color: rgb(218, 103, 185);
+    color: #4116b4;
+    height: 60px;
+    width: 100%;
+    border: 2px solid #d271e8;
+    margin-bottom: 10px;
+    text-transform: capitalize;
+    background-color: #a9e8eb;
 }
 * {
      font-family: Arial, Helvetica, sans-serif;
@@ -9,9 +15,8 @@
     font-weight:600;
 }
 
-
 body {
-    background-color: cornsilk;
+    min-height: 100vh;
     color: rgb(122, 18, 219);
 } 
 
@@ -29,19 +34,21 @@ h1 {
         font-size: 1em;
         font-weight: 500;
         font-family: inherit;
-        background-color: #1bceea;
+        background-color: #1b35ac;
         cursor: pointer;
         transition: border-color 0.25s;
+        color: white;
     }
     
     button:hover {
         background-color: #d271e8;
+        color: black;
     }
     input {
         width: 220px;
         height: 15px;
         font-size: 32px;
-        color: crimson;
+        color: #4116b4;
         border-radius: 8px;
         margin-right: 10px;
     }
