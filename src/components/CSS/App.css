@@ -7,6 +7,15 @@ body {
 
 
 
+.App {
+  display: block;
+  box-shadow: 5px 5px 5px #1d9c6f;
+  background-color: rgb(181, 242, 222);
+  width: 1000px;
+  margin: 10px;
+  padding-right: 40px;
+  border-radius: 7px;
+}
 
 
 label {

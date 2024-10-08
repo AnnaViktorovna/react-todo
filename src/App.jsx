@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
-import "./CSS/App.css";
-import AddTodoForm from "./AddTodoForm";
-import TodoList from "./TodoList";
+import  "./components/CSS/App.css";
+import AddTodoForm from "./components/AddTodoForm";
+import TodoList from "./components/TodoList";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
@@ -12,7 +12,6 @@ function App() {
 
     async function fetchData() {
         const apiKey = import.meta.env.VITE_AIRTABLE_API_TOKEN;
-        console.log(apiKey);
 
         const url = `https://api.airtable.com/v0/${
             import.meta.env.VITE_AIRTABLE_BASE_ID
