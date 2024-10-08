@@ -12,7 +12,6 @@ function App() {
 
     async function fetchData() {
         const apiKey = import.meta.env.VITE_AIRTABLE_API_TOKEN;
-        console.log(apiKey);
 
         const url = `https://api.airtable.com/v0/${
             import.meta.env.VITE_AIRTABLE_BASE_ID
