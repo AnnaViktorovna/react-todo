@@ -18,6 +18,13 @@
 body {
     min-height: 100vh;
     color: rgb(122, 18, 219);
+    background: linear-gradient(135deg, #425edf, #d497e2);
+    font-family: 'Roboto', sans-serif;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
 } 
 
 h1 {
@@ -61,5 +68,6 @@ h1 {
     
         .button, input {
             font-size: 14px; 
+            padding: 8px 16px;
     }
     }
