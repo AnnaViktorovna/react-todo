@@ -1,11 +1,13 @@
 import { useState, useEffect, useRef } from "react";
-import  "./components/CSS/App.css";
+import "./components/CSS/App.css";
 import AddTodoForm from "./components/AddTodoForm";
 import TodoList from "./components/TodoList";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
-    const [todoList, setTodoList] = useState([]);
+    const [todoList, setTodoList] = useState(
+        JSON.parse(localStorage.getItem("savedTodoList")) || []
+    );
     const [isLoading, setIsLoading] = useState(true);
 
     const inputRef = useRef();
@@ -13,38 +15,41 @@ function App() {
     async function fetchData() {
         const apiKey = import.meta.env.VITE_AIRTABLE_API_TOKEN;
 
-        
-
         const options = {
             method: "GET",
             headers: {
-                Authorization: `Bearer ${
-                    import.meta.env.VITE_AIRTABLE_API_TOKEN
-                }`,
+                Authorization: `Bearer ${apiKey}`,
             },
         };
 
         try {
             const url = `https://api.airtable.com/v0/${
-            import.meta.env.VITE_AIRTABLE_BASE_ID
-        }/${import.meta.env.VITE_TABLE_NAME}?view=Grid%20view&sort[0][field]=title&sort[0][direction]=asc`;
-        
+                import.meta.env.VITE_AIRTABLE_BASE_ID
+            }/${
+                import.meta.env.VITE_TABLE_NAME
+            }?view=Grid%20view&sort[0][field]=title&sort[0][direction]=asc`;
+
             const response = await fetch(url, options);
             if (!response.ok) {
                 throw new Error(`${response.status}`);
             }
             const data = await response.json();
-             
-            const todos = data.records.map((todo) => {
-                return {id: todo.id, title: todo.fields.title}
-            })
 
-            setTodoList(todos);
+            const todos = data.records.map((todo) => ({
+                 id: todo.id, title: todo.fields.title 
+                }));
+
+            const sortedTodos = [...todos].sort((a, b) => a.title.localeCompare(b.title));
+
+            const storedTodos = JSON.parse(localStorage.getItem("savedTodoList"));
+            const finalTodos = storedTodos && storedTodos.length > 0 ? storedTodos : sortedTodos;
+
+            setTodoList(finalTodos);
+            localStorage.setItem("savedTodoList", JSON.stringify(finalTodos));
             setIsLoading(false);
-
-          } catch (error) {
+        } catch (error) {
             console.error(error.message);
-            return null;
+            setIsLoading(false);
         }
     }
 
@@ -54,12 +59,14 @@ function App() {
 
     useEffect(() => {
         if (!isLoading) {
+            
             localStorage.setItem("savedTodoList", JSON.stringify(todoList));
         }
     }, [todoList, isLoading]);
 
     function addTodo(newTodo) {
-        setTodoList((prevTodos) => [...prevTodos, newTodo]);
+        const updatedTodoList = [...todoList, newTodo].sort((a, b) => a.title.localeCompare(b.title));
+        setTodoList(updatedTodoList);
         inputRef.current.focus();
     }
 
@@ -70,26 +77,31 @@ function App() {
     }
 
     return (
-       <BrowserRouter>
+        <BrowserRouter>
+            <Routes>
+                <Route
+                    path="/"
+                    element={
+                        <div className="App">
+                            <h1>My Todo List</h1>
+                            <AddTodoForm
+                                onAddTodo={addTodo}
+                                inputRef={inputRef}
+                            />
 
-       <Routes>
-       <Route path="/" element={
-        
-            <div className="App">
-                <h1>My Todo List</h1>
-                <AddTodoForm onAddTodo={addTodo} inputRef={inputRef} />
-
-                {isLoading ? (
-                    <p>Loading...</p>
-                ) : (
-                    <TodoList todoList={todoList} onRemoveTodo={removeTodo} />
-                )}
-            </div>
-       }
-       />
-       <Route path="/new" element={<h1>New ToDo List</h1>}/>
-       
-        </Routes>
+                            {isLoading ? (
+                                <p>Loading...</p>
+                            ) : (
+                                <TodoList
+                                    todoList={todoList}
+                                    onRemoveTodo={removeTodo}
+                                />
+                            )}
+                        </div>
+                    }
+                />
+                <Route path="/new" element={<h1>New ToDo List</h1>} />
+            </Routes>
         </BrowserRouter>
     );
 }
