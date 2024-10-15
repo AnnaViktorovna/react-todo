@@ -13,9 +13,7 @@ function App() {
     async function fetchData() {
         const apiKey = import.meta.env.VITE_AIRTABLE_API_TOKEN;
 
-        const url = `https://api.airtable.com/v0/${
-            import.meta.env.VITE_AIRTABLE_BASE_ID
-        }/${import.meta.env.VITE_TABLE_NAME}?view=Grid%20view&`;
+        
 
         const options = {
             method: "GET",
@@ -27,11 +25,16 @@ function App() {
         };
 
         try {
+            const url = `https://api.airtable.com/v0/${
+            import.meta.env.VITE_AIRTABLE_BASE_ID
+        }/${import.meta.env.VITE_TABLE_NAME}?view=Grid%20view&sort[0][field]=title&sort[0][direction]=asc`;
+        
             const response = await fetch(url, options);
             if (!response.ok) {
                 throw new Error(`${response.status}`);
             }
             const data = await response.json();
+             
             const todos = data.records.map((todo) => {
                 return {id: todo.id, title: todo.fields.title}
             })
