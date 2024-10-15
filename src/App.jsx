@@ -14,12 +14,12 @@ function App() {
     const inputRef = useRef();
 
     async function fetchData() {
-        const apiKey = import.meta.env.VITE_AIRTABLE_API_TOKEN;
-
         const options = {
             method: "GET",
             headers: {
-                Authorization: `Bearer ${import.meta.env.VITE_AIRTABLE_API_TOKEN}`,
+                Authorization: `Bearer ${
+                    import.meta.env.VITE_AIRTABLE_API_TOKEN
+                }`,
             },
         };
 
@@ -45,9 +45,8 @@ function App() {
                 a.title.localeCompare(b.title)
             );
 
-           
             setTodoList(sortedTodos);
-            
+
             setIsLoading(false);
         } catch (error) {
             console.error(error.message);
@@ -65,21 +64,80 @@ function App() {
         }
     }, [todoList, isLoading]);
 
-    function addTodo(newTodo) {
-        const updatedTodoList = [...todoList, newTodo].sort((a, b) =>
-            a.title.localeCompare(b.title)
-        );
-        setTodoList(updatedTodoList);
+    async function addTodo(newTodo) {
+        const options = {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${
+                    import.meta.env.VITE_AIRTABLE_API_TOKEN
+                }`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                fields: {
+                    title: newTodo.title,
+                },
+            }),
+        };
+
+        try {
+            const url = `https://api.airtable.com/v0/${
+                import.meta.env.VITE_AIRTABLE_BASE_ID
+            }/${import.meta.env.VITE_TABLE_NAME}`;
+            const response = await fetch(url, options);
+           
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            const updatedTodoList = [...todoList, newTodo].sort((a, b) =>
+                a.title.localeCompare(b.title)
+            );
+            setTodoList(updatedTodoList);
+
+            
+        } catch (error) {
+            console.error("Error adding todo:", error);
+        }
 
         if (inputRef.current) {
             inputRef.current.focus();
         }
     }
 
-    function removeTodo(id) {
-        const filterTodo = todoList.filter((todo) => todo.id !== id);
-        setTodoList(filterTodo);
-        inputRef.current.focus();
+    async function removeTodo(id) {
+        const options = {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${
+                    import.meta.env.VITE_AIRTABLE_API_TOKEN
+                }`,
+            },
+        };
+
+        try {
+            const url = `https://api.airtable.com/v0/${
+                import.meta.env.VITE_AIRTABLE_BASE_ID
+            }/${import.meta.env.VITE_TABLE_NAME}/${id}`;
+
+            const response = await fetch(url, options);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const result = await response.json();
+            console.log("Deleted record:", result);
+
+            setTodoList((prevTodos) =>
+                prevTodos.filter((todo) => todo.id !== id)
+            );
+        } catch (error) {
+            console.error("Failed to delete todo:", error);
+        }
+
+        if (inputRef.current) {
+            inputRef.current.focus();
+        }
     }
 
     return (
