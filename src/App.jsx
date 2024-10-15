@@ -19,7 +19,7 @@ function App() {
         const options = {
             method: "GET",
             headers: {
-                Authorization: `Bearer ${apiKey}`,
+                Authorization: `Bearer ${import.meta.env.VITE_AIRTABLE_API_TOKEN}`,
             },
         };
 

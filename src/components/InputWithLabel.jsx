@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import styles from "./CSS/TodoListItem.module.css";
 import PropTypes from "prop-types";
 
