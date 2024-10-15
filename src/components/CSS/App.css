@@ -3,6 +3,7 @@ body {
   margin: 0;
   display: flex;
   min-height: 100vh;
+  font-family: 'Roboto', sans-serif;
 }
 
 
@@ -67,3 +68,26 @@ label {
 .read-the-docs {
   color: #888;
 }
+
+
+@media (max-width: 768px) {
+  .App {
+      width: 90%;
+      padding-right: 20px;
+  }
+  
+  * {
+    font-size: 16px;
+  }
+
+  input {
+      width: 180px;
+      font-size: 24px;
+  }
+
+  button {
+      font-size: 16px;
+      padding: 10px;
+  }
+}
+

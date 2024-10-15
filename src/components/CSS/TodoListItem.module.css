@@ -8,12 +8,9 @@
     background-color: #a9e8eb;
 }
 * {
-     font-family: Arial, Helvetica, sans-serif;
     padding: 10px;
     margin: 0 5px;
-    font-size: 26px;
-    font-weight:600;
-}
+    }
 
 body {
     min-height: 100vh;
@@ -25,6 +22,8 @@ body {
     align-items: center;
     justify-content: center;
     margin: 0;
+    font-size: 26px; 
+    font-weight:600;
 } 
 
 h1 {
@@ -58,6 +57,8 @@ h1 {
         color: #4116b4;
         border-radius: 8px;
         margin-right: 10px;
+        border: 2px solid #d271e8;
+        padding: 10px;
     }
 
     @media (max-width: 600px) {
@@ -71,3 +72,46 @@ h1 {
             padding: 8px 16px;
     }
     }
+
+    @media (max-width: 768px) {
+        .App {
+            width: 90%;
+            padding-right: 20px;
+        }
+    
+        input {
+            width: 180px;
+            font-size: 24px;
+        }
+    
+        button {
+            font-size: 16px;
+            padding: 10px;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        *{
+            font-size: 16px;
+            font-weight: 400;
+        }
+        h1 {
+            font-size: 16px;
+        }
+    
+        .App {
+            width: 100%;
+            padding: 10px;
+        }
+    
+        input {
+            width: 150px;
+            font-size: 20px;
+        }
+    
+        button {
+            font-size: 14px;
+            padding: 5px;
+        }
+    }
+    
