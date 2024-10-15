@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import "./components/CSS/TodoListItem.module.css";
 import AddTodoForm from "./components/AddTodoForm";
 import TodoList from "./components/TodoList";
+import NewTodo from "./components/NewTodo";
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 
 function App() {
@@ -76,7 +77,10 @@ function App() {
             a.title.localeCompare(b.title)
         );
         setTodoList(updatedTodoList);
-        inputRef.current.focus();
+
+        if (inputRef.current) {
+            inputRef.current.focus();
+        }
     }
 
     function removeTodo(id) {
@@ -114,7 +118,7 @@ function App() {
                         </div>
                     }
                 />
-                <Route path="/new" element={<h1>New ToDo List</h1>} />
+                <Route path="/new" element={<NewTodo onAddTodo={addTodo} />} />
             </Routes>
         </BrowserRouter>
     );
