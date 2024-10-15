@@ -45,16 +45,9 @@ function App() {
                 a.title.localeCompare(b.title)
             );
 
-            const storedTodos = JSON.parse(
-                localStorage.getItem("savedTodoList")
-            );
-            const finalTodos =
-                storedTodos && storedTodos.length > 0
-                    ? storedTodos
-                    : sortedTodos;
-
-            setTodoList(finalTodos);
-            localStorage.setItem("savedTodoList", JSON.stringify(finalTodos));
+           
+            setTodoList(sortedTodos);
+            
             setIsLoading(false);
         } catch (error) {
             console.error(error.message);
