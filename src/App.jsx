@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import "./components/CSS/TodoListItem.module.css";
 import AddTodoForm from "./components/AddTodoForm";
 import TodoList from "./components/TodoList";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 
 function App() {
     const [todoList, setTodoList] = useState(
@@ -35,15 +35,22 @@ function App() {
             }
             const data = await response.json();
 
-
             const todos = data.records.map((todo) => ({
-                 id: todo.id, title: todo.fields.title 
-                }));
+                id: todo.id,
+                title: todo.fields.title,
+            }));
 
-            const sortedTodos = [...todos].sort((a, b) => a.title.localeCompare(b.title));
+            const sortedTodos = [...todos].sort((a, b) =>
+                a.title.localeCompare(b.title)
+            );
 
-            const storedTodos = JSON.parse(localStorage.getItem("savedTodoList"));
-            const finalTodos = storedTodos && storedTodos.length > 0 ? storedTodos : sortedTodos;
+            const storedTodos = JSON.parse(
+                localStorage.getItem("savedTodoList")
+            );
+            const finalTodos =
+                storedTodos && storedTodos.length > 0
+                    ? storedTodos
+                    : sortedTodos;
 
             setTodoList(finalTodos);
             localStorage.setItem("savedTodoList", JSON.stringify(finalTodos));
@@ -60,13 +67,14 @@ function App() {
 
     useEffect(() => {
         if (!isLoading) {
-            
             localStorage.setItem("savedTodoList", JSON.stringify(todoList));
         }
     }, [todoList, isLoading]);
 
     function addTodo(newTodo) {
-        const updatedTodoList = [...todoList, newTodo].sort((a, b) => a.title.localeCompare(b.title));
+        const updatedTodoList = [...todoList, newTodo].sort((a, b) =>
+            a.title.localeCompare(b.title)
+        );
         setTodoList(updatedTodoList);
         inputRef.current.focus();
     }
@@ -84,7 +92,12 @@ function App() {
                     path="/"
                     element={
                         <div className="App">
+                            <nav>
+                                <Link to="/">Home</Link>
+                                <Link to="/new">New Todo</Link>
+                            </nav>
                             <h1>My Todo List</h1>
+
                             <AddTodoForm
                                 onAddTodo={addTodo}
                                 inputRef={inputRef}

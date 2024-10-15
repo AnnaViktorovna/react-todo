@@ -10,134 +10,142 @@
 * {
     padding: 10px;
     margin: 0 5px;
-    }
+}
 
 body {
     min-height: 100vh;
     color: rgb(40, 6, 73);
     background: linear-gradient(135deg, #425edf, #d497e2);
-    font-family: 'Roboto', sans-serif;
+    font-family: "Roboto", sans-serif;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0;
-    font-size: 26px; 
-    font-weight:600;
-} 
+    font-size: 26px;
+    font-weight: 600;
+}
 
 h1 {
     color: #24092d;
     text-align: center;
     background: linear-gradient(135deg, #c456e5, #3b1344);
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent; 
-    font-size: 3em; 
+    -webkit-text-fill-color: transparent;
+    font-size: 3em;
     font-weight: 700;
-   
 }
 
+button {
+    border-radius: 15px;
+    border: 1px solid transparent;
+    padding: 0.6em 1.2em;
+    margin-left: 10px;
+    font-size: 1em;
+    font-weight: 500;
+    font-family: inherit;
+    background-color: #1b35ac;
+    cursor: pointer;
+    transition: border-color 0.25s;
+    color: white;
+}
+
+button:hover {
+    background-color: #d271e8;
+    color: black;
+}
+input {
+    width: 220px;
+    height: 25px;
+    font-size: 32px;
+    color: #4116b4;
+    border-radius: 8px;
+    margin-right: 10px;
+    border: 2px solid #d271e8;
+    padding: 10px;
+}
+
+ul li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+}
+nav a {
+    text-decoration: none;
+    color: #1b35ac;
+    font-weight: bold;
+    text-align: center;
+    font-size: 2em;
+    margin-right: 50px;
+}
+nav {
+    margin: 20px 0;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+}
+
+@media (max-width: 768px) {
+    .App {
+        width: 90%;
+        padding-right: 20px;
+    }
+    h1 {
+        font-size: 2.5em;
+        font-weight: 600;
+    }
+
+    input {
+        height: 50px;
+        font-size: 26px;
+    }
 
     button {
-        border-radius: 15px;
-        border: 1px solid transparent;
-        padding: 0.6em 1.2em;
-        margin-left: 10px;
-        font-size: 1em;
-        font-weight: 500;
-        font-family: inherit;
-        background-color: #1b35ac;
-        cursor: pointer;
-        transition: border-color 0.25s;
-        color: white;
+        font-size: 28px;
+        padding: 10px;
     }
-    
-    button:hover {
-        background-color: #d271e8;
-        color: black;
+}
+
+@media (max-width: 600px) {
+    h1 {
+        font-size: 2em;
+        font-weight: 600;
+    }
+
+    .button,
+    input {
+        font-size: 24px;
+        padding: 8px 16px;
     }
     input {
-        width: 220px;
-        height: 25px;
-        font-size: 32px;
-        color: #4116b4;
-        border-radius: 8px;
-        margin-right: 10px;
-        border: 2px solid #d271e8;
+        height: 50px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.5em;
+    }
+
+    .App {
+        width: 90%;
         padding: 10px;
+        font-size: 16px;
+        font-weight: 400;
     }
 
-    ul li {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+    input {
+        font-size: 24px;
+        margin-bottom: 10px;
+        width: 150px;
+    }
+
+    button {
+        font-size: 24px;
         padding: 10px;
-      }
-
-    
-
-    @media (max-width: 768px) {
-        .App {
-            width: 90%;
-            padding-right: 20px;
-        }
-        h1 {
-            font-size: 2.5em;
-            font-weight: 600;
-        }
-    
-        input {
-            height: 50px;
-            font-size: 26px;
-        }
-    
-        button {
-            font-size: 28px;
-            padding: 10px;
-        }
+        text-align: center;
     }
-
-    @media (max-width: 600px) {
-      
-        h1 {
-               font-size: 2em; 
-               font-weight: 600;
-           }
-       
-           .button, input {
-               font-size: 24px; 
-               padding: 8px 16px;
-       }
-       input {
-        height:  50px;
-       }
-       
-       }
-    
-    @media (max-width: 480px) {
-    
-
-        h1 {
-            font-size: 1.5em;
-        }
-    
-        .App {
-            width: 90%;
-            padding: 10px;
-            font-size: 16px;
-            font-weight: 400;
-        }
-    
-        input {
-            
-            font-size: 24px;
-            margin-bottom: 10px;
-            width: 150px;
-        }
-    
-        button {
-            font-size: 24px;
-            padding: 10px;
-            text-align: center;
-        }
-    }
-    
+}
