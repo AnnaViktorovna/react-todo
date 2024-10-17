@@ -12,12 +12,20 @@ export default function AddTodoForm({ onAddTodo, inputRef }) {
 
     function handleAddTodo(event) {
         event.preventDefault();
+
+        if (todoTitle.trim() === "") {
+            alert("Please enter a title for the todo.");
+            return;
+        }
+
         const newTodo = {
             title: todoTitle,
             id: Date.now(),
         };
+
         onAddTodo(newTodo);
         setTodoTitle("");
+        inputRef.current.focus();
     }
 
     return (
