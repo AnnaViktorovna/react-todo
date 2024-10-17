@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 export default function NewTodo({ onAddTodo }) {
     const inputRef = useRef();
 
+    
+
     return (
         <div className="App">
             <nav>

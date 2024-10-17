@@ -91,3 +91,23 @@ label {
   }
 }
 
+@media (max-width: 480px) {
+  h1 {
+      font-size: 16px;
+  }
+
+  .App {
+      width: 100%;
+      padding: 10px;
+  }
+
+  input {
+      width: 150px;
+      font-size: 20px;
+  }
+
+  button {
+      font-size: 14px;
+      padding: 5px;
+  }
+}

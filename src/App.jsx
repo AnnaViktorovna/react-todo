@@ -1,9 +1,11 @@
 import { useState, useEffect, useRef } from "react";
-import "./components/CSS/TodoListItem.module.css";
+import styles from "./components/CSS/TodoListItem.module.css";
+import  "./components/CSS/TodoListItem.module.css";
 import AddTodoForm from "./components/AddTodoForm";
 import TodoList from "./components/TodoList";
 import NewTodo from "./components/NewTodo";
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
+
 
 function App() {
     const [todoList, setTodoList] = useState(
@@ -90,11 +92,17 @@ function App() {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             
-            const updatedTodoList = [...todoList, newTodo].sort((a, b) =>
+            const airtableResponse = await response.json();
+        
+       
+        const newTodoWithID = {
+            id: airtableResponse.id, 
+            title: newTodo.title,
+        };
+            const updatedTodoList = [...todoList, newTodoWithID].sort((a, b) =>
                 a.title.localeCompare(b.title)
             );
             setTodoList(updatedTodoList);
-
             
         } catch (error) {
             console.error("Error adding todo:", error);
@@ -151,7 +159,10 @@ function App() {
                                 <Link to="/">Home</Link>
                                 <Link to="/new">New Todo</Link>
                             </nav>
-                            <h1>My Todo List</h1>
+                            <div className={styles.headerContainer}>
+                            <img src="/src/img/to-do-list-13182.png" alt="todo"></img>
+                            <h1>My Todo List</h1></div>
+                            
 
                             <AddTodoForm
                                 onAddTodo={addTodo}
@@ -169,6 +180,7 @@ function App() {
                         </div>
                     }
                 />
+                
                 <Route path="/new" element={<NewTodo onAddTodo={addTodo} />} />
             </Routes>
         </BrowserRouter>
